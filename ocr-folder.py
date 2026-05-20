@@ -6,7 +6,9 @@ from ollama import chat
 dir = sys.argv[1]
 
 PATH = f"{dir}/pngs/*.png"
-MODEL_NAME = "qwen3-vl:30b-a3b-instruct"
+VISION_MODEL = "qwen3-vl:30b-a3b-instruct"
+DEFAULT_PROMPT = 'Transcribe this Portuguese text. You must output it in basic Markdown format, with footnotes. Do not translate it; transcribe it exactly.'
+DEFAULT_SYSTEM_PROMPT = 'You are a careful reader. When transcribing you always generate output in Markdown format, with careful attention to formatting, including footnotes, which use the square bracket format: [^1], in the text and in the footnote. Ignore the running heads but include the page numbers.'
 CONTEXT_WINDOW = 16384 
 
 output = ""
@@ -14,15 +16,15 @@ output = ""
 for file in sorted(glob.iglob(PATH, recursive=True)):
   print(file)
   response = chat(
-    model = MODEL_NAME,
+    model = VISION_MODEL,
     messages = [
       { 
         'role': 'system',
-        'content': 'You are a careful reader. When transcribing you always generate output in Markdown format, with careful attention to formatting, including footnotes, which use the square bracket format: [^1], in the text and in the footnote. Ignore the running heads but include the page numbers.'
+        'content': DEFAULT_SYSTEM_PROMPT
       },
       {
         'role': 'user',
-        'content': 'Transcribe this Portuguese text. You must output it in basic Markdown format, with footnotes. Do not translate it; transcribe it exactly.',
+        'content': DEFAULT_PROMPT,
         'images': [file],
       },
     ],
