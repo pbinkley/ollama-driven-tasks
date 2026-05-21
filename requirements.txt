@@ -1,1 +1,8 @@
 ollama
+faster-whisper
+scikit-learn
+numpy
+mlx-whisper
+torchaudio
+speechbrain
+opencv-python
