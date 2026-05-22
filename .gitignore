@@ -1,6 +1,9 @@
 # Project files
 output
+.DS_Store
+config.json
 
+# Github's .gitignore for Python
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -219,4 +222,3 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
-.DS_Store

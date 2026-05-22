@@ -1,50 +1,34 @@
-import os, sys, base64
-from datetime import datetime
-from pathlib import Path
+import os, sys, base64, argparse
 import ollama
+import ollama_config
+import filename_suffix
 
 image = sys.argv[1]
 
-VISION_MODEL = "qwen3-vl:30b-a3b-instruct"
-DEFAULT_PROMPT = "Transcribe this text. You must output it in basic Markdown format. Do not translate it; transcribe it exactly. Keep the original line breaks within paragraphs. Render lists as Markdown lists. Ignore the running heads but include the page numbers."
-DEFAULT_SYSTEM_PROMPT = 'You are a careful reader. When transcribing you always generate output in Markdown format, with careful attention to formatting.'
+def perform_ocr_raw_api(image_path):
+    parser = argparse.ArgumentParser(description="Ollama-driven task")
+    config = ollama_config.build_config(parser, image_path)
 
-def perform_ocr_raw_api(image_path, model_name=VISION_MODEL):
-    with open(image_path, "rb") as image_file:
-        base64_image = base64.b64encode(image_file.read()).decode('utf-8')
-    
-    response = ollama.chat(
-        model = model_name,
-        messages=[
-            { 
-              'role': 'system',
-              'content': DEFAULT_SYSTEM_PROMPT
-            },
-            {
-              'role': 'user',
-              'content': DEFAULT_PROMPT,
-              'images': [base64_image]
-          }]
-        ) 
+    # 2. Pass the dictionary keys as arguments using ** unpacking
+    response = ollama.generate(**config)
+
+    # 3. Print the result
+    # print(response['response'])
     
     return response
 
-ocr_response = perform_ocr_raw_api(
-    image, 
-    model_name=VISION_MODEL
-)
+ocr_response = perform_ocr_raw_api(image)
 
 # show sample output
-print("  " + " ".join(ocr_response.message.content[:40].splitlines()) + "...")
+print("  OCR Sample: " + " ".join(ocr_response['response'][:40].splitlines()) + "...")
 
+# create output directory
 if not os.path.exists("output"):
     os.makedirs("output")
 
-image_file = Path(image).name
+output_file = filename_suffix.filename_suffix(image)
 
-timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-
-output_file = f"output/{image_file}_{timestamp}.markdown"
+# save OCR text file
 with open(output_file, "w") as f:
-  f.write(ocr_response.message.content)
+    f.write(ocr_response['response'])
 print(f"Saved as {output_file}")
