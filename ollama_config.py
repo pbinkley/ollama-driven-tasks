@@ -43,36 +43,57 @@ def build_config(parser, input_file):
     parser.add_argument('-c', '--conf', nargs='?', default='config.json', help='Configuration file')
     parser.add_argument('-i', '--ignore', nargs='?', const='', help='Ignore default config.json')
     parser.add_argument('-v', '--verbose', nargs='?', help='Verbose output')
+    parser.add_argument('-g', '--groundtruth', action='store_true', help='Report error rates (ground truth)')
     parser.add_argument('input_file', nargs='?', default=input_file)
 
-    args = parser.parse_args()
+    parsed_args = parser.parse_args()
+    args = vars(parsed_args) # convert to dict
+
+    # 3. Separate parameters into different dictionaries
+    script_dict = {}
+    if 'groundtruth' in args: 
+        script_dict['groundtruth'] = args['groundtruth']
+    else:
+        script_dict['groundtruth'] = False
+
+
+
+
+
+
+    print(args)
+    print(f"g: {script_dict['groundtruth']}")
+
+    # pdb.set_trace()
 
     # select specified config file, if any
-    if args.conf:
-        conf_file = args.conf         
+    if args['conf']:
+        conf_file = args['conf']         
     # otherwise, select default config file if present and not ignored
-    elif(not(args.ignore)):           
+    elif(not(args['ignore'])):           
         conf_file = './config.json'
 
     # load the selected config file into config
     if (conf_file):                   
-        with open(args.conf, 'r') as file:
+        with open(conf_file, 'r') as file:
             config = json.load(file)
-    else: config = {}                  # last resort: create empty config
+    else:
+        config = {}                  # last resort: create empty config
 
     # add input_file (path to image) to config
-    if args.prompt:
-        config['prompt'] = args.prompt
-    if args.model:
-        config['model'] = args.model
-    if args.ctx:
+    # pdb.set_trace()
+    if args['prompt']:
+        config['prompt'] = args['prompt']
+    if args['model']:
+        config['model'] = args['model']
+    if args['ctx']:
         # TODO make sure config['options'] exists
-        config['options']['num_ctx'] = args.ctx
-    if args.temp:
-        config['options']['temperature'] = args.temp
-    if args.input_file:
-        config['images'] = [args.input_file]
-    return config
+        config['options']['num_ctx'] = args['ctx']
+    if args['temp']:
+        config['options']['temperature'] = args['temp']
+    if args['input_file']:
+        config['images'] = args['input_file']
+    return config, script_dict
 
 # config = build_config(parser, input_file)
 # print(config)

@@ -16,10 +16,29 @@ This approach introduces a significant limitation: you can only use models that 
 - install [Ollama](https://ollama.com/)
 - clone this repository into a convenient directory (the installation directory)
 - set up a Python virtual environment with venv or conda in the installation directory
-- activate the virtual environment
-- install dependencies (currently just the Ollama API)
+
+e.g.
 
 ```
+python -m venv venv
+```
+
+- activate the virtual environment (you'll have to do this every time you start a new session)
+
+```
+source venv/bin/activate
+```
+
+- install dependencies
+
+```
+pip install -r requirements.txt
+```
+
+- if it fails to install fastwer, install it from the Github repo and then try again:
+
+```
+pip install -U git+https://github.com/kahne/fastwer
 pip install -r requirements.txt
 ```
 
