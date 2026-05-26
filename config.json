@@ -1,0 +1,9 @@
+{
+    "model": "qwen3-vl:30b-a3b-instruct",
+    "prompt": "You are a careful expert in reading documents. Extract the full text from this image, including headers and footers. Output the text; do not add any commentary and do not insert text where the original is incomplete. Do not omit any text.",
+    "images": [],
+    "options": {
+        "temperature": 0
+    }
+}
+
