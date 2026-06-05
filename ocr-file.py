@@ -13,6 +13,8 @@ def encode_image_to_base64(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
+#def normalize_line_endings(input_text):
+
 def perform_ocr_raw_api(image_path):
     parser = argparse.ArgumentParser(description="Ollama-driven task")
     config, groundtruth = ollama_config.build_config(parser, image_path)
@@ -38,6 +40,20 @@ print("  OCR Sample: " + " ".join(ocr_response['response'][:40].splitlines()) + 
 
 if groundtruth:
     print("do ground truth")
+
+    script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
+    abs_file_path = os.path.join(script_dir, groundtruth['groundtruth'])
+
+    with open(abs_file_path, "r") as f:
+        ground = f.read()
+        print(f"ground: {repr(ground)}")
+
+    print(f"ocr: {repr(ocr_response['response'])}")
+    
+    cer = fastwer.score_sent(ocr_response['response'], ground, char_level=True)
+    wer = fastwer.score_sent(ocr_response['response'], ground, char_level=False)
+
+    print(f"CER: {cer}; WER: {wer}")
 
 # create output directory
 if not os.path.exists("output"):

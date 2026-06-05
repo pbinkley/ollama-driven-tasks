@@ -43,7 +43,7 @@ def build_config(parser, input_file):
     parser.add_argument('-c', '--conf', nargs='?', default='config.json', help='Configuration file')
     parser.add_argument('-i', '--ignore', nargs='?', const='', help='Ignore default config.json')
     parser.add_argument('-v', '--verbose', nargs='?', help='Verbose output')
-    parser.add_argument('-g', '--groundtruth', action='store_true', help='Report error rates (ground truth)')
+    parser.add_argument('-g', '--groundtruth', nargs='?', help='Report error rates (ground truth)')
     parser.add_argument('input_file', nargs='?', default=input_file)
 
     parsed_args = parser.parse_args()
