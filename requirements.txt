@@ -1,8 +1,9 @@
 ollama
-faster-whisper
+# whisper version must match hardware (CUDA/CPU or MPS)
+faster-whisper sys_platform == 'windows' or sys_platform == 'linux'
+mlx-whisper; sys_platform == 'darwin' and platform_machine == 'arm64'
 scikit-learn
 numpy
-mlx-whisper
 torchaudio
 speechbrain
 opencv-python

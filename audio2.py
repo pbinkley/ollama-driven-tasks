@@ -20,7 +20,9 @@ def get_transcription_provider(model_size="large"):
             
             def mlx_provider(audio_path):
                 # Map standard short name to the MLX community HuggingFace weights
-                hf_model = f"mlx-community/whisper-{model_size}-mlx"
+                # hf_model = f"mlx-community/whisper-{model_size}-mlx"
+                # hf_model = f"mlx-community/whisper-large-v3-turbo"
+                hf_model = f"mlx-community/whisper-large-v3-mlx"
                 result = mlx_whisper.transcribe(
                     audio_path,
                     path_or_hf_repo=hf_model,
@@ -80,7 +82,7 @@ def get_transcription_provider(model_size="large"):
 
 def process_audio(audio_path, num_speakers=None):
     # Fetch the optimal architecture engine dynamically
-    transcribe_engine = get_transcription_provider(model_size="small")
+    transcribe_engine = get_transcription_provider(model_size="large")
     
     print("-> Processing audio and extracting word-level timestamps...")
     words = transcribe_engine(audio_path)

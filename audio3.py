@@ -7,6 +7,8 @@ import torchaudio
 from sklearn.cluster import AgglomerativeClustering
 from speechbrain.inference.speaker import EncoderClassifier
 
+# Set the token environment variable
+
 def get_transcription_provider(model_size="small"):
     """
     Detects operating system and initializes the absolute fastest hardware acceleration layer.

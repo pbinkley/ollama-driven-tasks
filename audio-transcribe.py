@@ -67,7 +67,7 @@ if __name__ == "__main__":
     # Test file path (Replace with your actual .wav file location)
     # audio_file = "/Users/pbinkley/Documents/Projects/llm/gradio/paul-vs-george.mp3" 
     # audio_file = "/Users/pbinkley/Downloads/Entretien recherche sur le Patrimoine - 2026_05_12 09_58 MDT - Recording.mp3"
-    audio_file = "optimal-output.mp3"
+    audio_file = "testing/optimal-output.mp3"
 
     refined_transcript = transcribe_and_process(audio_file, ollama_model="llama3.2")
     
