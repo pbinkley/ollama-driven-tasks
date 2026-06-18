@@ -7,6 +7,7 @@ def filename_suffix(file_name):
 
     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
 
-    output_file = f"output/{image_file}_{timestamp}.markdown"
+    # TODO handle .md, .txt
+    output_file = f"output/{image_file}_{timestamp}.json"
 
     return output_file

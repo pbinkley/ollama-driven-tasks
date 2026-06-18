@@ -1,0 +1,11 @@
+Here is a grocery shopping receipt. I want you to extract the data: date, grocery store, items with their quantity and prices. Some entries do not have quantities, so omit the field. The source date may be in YYYY-MM-DD or YY-MM-DD format. Output the data in json like this:
+
+{
+    "supplier": "FreshCo Bonny Doon",
+    "date": "2026-05-14",
+    "gst": 0.34,
+    "total": 17.41,
+    "items": [
+        {"type": "Sliced Turkey", quantity="250G", "price": 6.29}
+    ]
+}
