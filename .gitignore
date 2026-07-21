@@ -2,6 +2,7 @@
 output
 .DS_Store
 config.json
+pngs
 
 # Github's .gitignore for Python
 # Byte-compiled / optimized / DLL files
