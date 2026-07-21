@@ -1,7 +1,6 @@
 {
     "model": "qwen3-vl:30b-a3b-instruct",
-    "prompt": "You are a careful expert in reading documents. Extract the full text from this image, including headers and footers. Output the text; do not add any commentary and do not insert text where the original is incomplete. Do not omit any text.",
-    "images": [],
+    "prompt": "You are a careful expert in reading documents. Here is a grocery shopping receipt. I want you to extract the data: date, grocery store, items with their quantity and prices. Some entries do not have quantities, so omit the field. Output the data in json like this:\n\n\n\n{\n\n    \"supplier\": \"FreshCo Bonny Doon\",\n\n    \"date\": \"2026-05-14\",\n\n    \"gst\": 0.34,\n\n    \"total\": 17.41,\n\n    \"items\": [\n\n        {\"type\": \"Sliced Turkey\", quantity=\"250G\", \"price\": 6.29}\n\n    ]\n\n}\n\n\n\nThe date may be in YYYY-MM-DD or YY-MM-DD format.",
     "options": {
         "temperature": 0
     }

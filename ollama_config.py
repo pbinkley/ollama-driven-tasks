@@ -60,9 +60,8 @@ def build_config(parser, input_file):
 
 
 
-
-    print(args)
-    print(f"g: {script_dict['groundtruth']}")
+    if args['verbose']:
+        print(f"args: {args}")
 
     # pdb.set_trace()
 
@@ -93,6 +92,10 @@ def build_config(parser, input_file):
         config['options']['temperature'] = args['temp']
     if args['input_file']:
         config['images'] = args['input_file']
+
+    if args['verbose']:
+        print(f"args: {args}")
+
     return config, script_dict
 
 # config = build_config(parser, input_file)
