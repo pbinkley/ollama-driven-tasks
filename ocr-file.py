@@ -2,7 +2,6 @@ import os, sys, base64, argparse
 import ollama
 import ollama_config # from ollama_config.py
 import filename_suffix
-import fastwer
 import pdb
 
 image = sys.argv[1]
@@ -56,11 +55,6 @@ if groundtruth:
         print(f"ground: {repr(ground)}")
         print(f"ocr: {repr(ocr_response['response'])}")
     
-    cer = fastwer.score_sent(ocr_response['response'], ground, char_level=True)
-    wer = fastwer.score_sent(ocr_response['response'], ground, char_level=False)
-
-    print(f"CER: {cer}; WER: {wer}")
-
 # create output directory
 if not os.path.exists("output"):
     os.makedirs("output")
